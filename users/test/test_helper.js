@@ -12,8 +12,17 @@ before((done) => {
 })
 
 beforeEach((done) => {
-  mongoose.connection.collections.users.drop(() => {
-    // Ready to run neext test!
-    done()
+  const { users, comments, blogposts } = mongoose.connection.collections
+
+  // mongoose.connection.collections.users.drop(() => {
+  //   // Ready to run neext test!
+  //   // done()
+  // })
+  users.drop(() => {
+    comments.drop(() => {
+      blogposts.drop(() => {
+        done()
+      })
+    })
   }) 
 })
